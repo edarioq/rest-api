@@ -1,4 +1,5 @@
 # REST API Project
+This is a basic REST API built with Python and Flask
 
 ## Docker
 
@@ -12,4 +13,10 @@ Run the container
 
 OR run Docker Compose
 
+```docker-compose build```
+
 ```docker-compose up```
+
+To get into the container's shell, use:
+
+```docker exec -it <container> bash```
