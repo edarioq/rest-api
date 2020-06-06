@@ -1,5 +1,4 @@
-Flask
-flask-restful
-Flask-JWT
-Flask-Sqlalchemy
+Flask-RESTful
+Flask-JWT-Extended
+Flask-SQLAlchemy
 python-dotenv
