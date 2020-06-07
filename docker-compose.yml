@@ -1,14 +1,27 @@
 version: "3"
 services:
-  web:
+  database:
     env_file:
-        - .env
-    build: .
-    command: python app.py
-    ports:
-        - $PORT:$PORT
+      - .env
+    image: postgres
+    environment:
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_DB: $DATABASE_DB
     volumes:
-        - .:/app
+      - ./database-data:/var/lib/postgresql/data
+    ports:
+      - $DATABASE_PORT:$DATABASE_PORT
+  api:
+    env_file:
+      - .env
+    build: .
+    ports:
+      - $API_PORT:$API_PORT
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+
 volumes:
-    apidata:
-      driver: local
+    database-data:

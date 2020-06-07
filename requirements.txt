@@ -2,3 +2,4 @@ Flask-RESTful
 Flask-JWT-Extended
 Flask-SQLAlchemy
 python-dotenv
+psycopg2

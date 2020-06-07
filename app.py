@@ -3,6 +3,7 @@ import os
 from flask import Flask, request, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+from dotenv import load_dotenv
 
 from db import db
 
@@ -12,14 +13,14 @@ from resources.store import Store, StoreList
 from blacklist import BLACKLIST
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+load_dotenv('.env')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.secret_key = 'zeus'
 api = Api(app)
-
 
 @app.before_first_request
 def create_tables():
@@ -86,4 +87,5 @@ api.add_resource(TokenRefresh, '/refresh')
 if __name__ == "__main__":
     db.init_app(app)
     ENVIRONMENT_DEBUG = os.environ.get("DEBUG", False)
-    app.run(host='0.0.0.0', port=5000, debug=ENVIRONMENT_DEBUG)
+    ENVIRONMENT_PORT = os.environ.get("API_PORT", False)
+    app.run(host='0.0.0.0', port=ENVIRONMENT_PORT, debug=ENVIRONMENT_DEBUG)
