@@ -1,5 +1,5 @@
 # REST API Project
-This is a basic REST API built with Python and Flask
+This is a starter project with a basic REST API built with Docker, Flask, and PostgreSQL. Use this to build your own REST API.
 
 ## Docker
 
